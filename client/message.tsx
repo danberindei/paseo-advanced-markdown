@@ -14,7 +14,12 @@ import {
   codeBlockMarkdown,
   hostCodeBlockMarkdown,
 } from "../shared/markdown/host-block.js";
-import { fontScaleToBaseSize, moduleSettings, type ModuleSettings } from "../shared/settings.js";
+import {
+  fontScaleToBaseSize,
+  moduleSettings,
+  themeContentSize,
+  type ModuleSettings,
+} from "../shared/settings.js";
 import Markdown, {
   MarkdownIt,
   markdownExtensions,
@@ -97,7 +102,11 @@ const MemoizedMessage = memo(
     const [fileSelection, setFileSelection] = useState<FileSelection | null>(null);
     const selectedFile =
       fileSelection?.hostId === host.id && fileSelection.agentId === agentId ? fileSelection : null;
-    const fontSize = fontScaleToBaseSize(modules.fontScale, layout.compact);
+    const fontSize = fontScaleToBaseSize(
+      modules.fontScale,
+      themeContentSize(theme),
+      layout.compact,
+    );
     const styles = useMemo(
       () => ({
         body: {
